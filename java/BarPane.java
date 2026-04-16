@@ -25,6 +25,7 @@ public class BarPane extends VBox {
         // We set it aligned to top because we want to decrease the filled rectangle from the bottom.
         barContainer.setAlignment(Pos.TOP_CENTER);
 
+        // We need to use backgroundRectangle because barContainer matches itself vertically with fillRectangle otherwise.
         Rectangle backgroundRectangle = new Rectangle(30, maxBarHeight, Color.BLACK);
         fillRectangle = new Rectangle(30, maxBarHeight, fillColor);
 

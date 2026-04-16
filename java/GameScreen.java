@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 
+// We use Pane instead of StackPane because StackPane allows you to set margins whereas Pane doesn't.
 public class GameScreen extends StackPane {
     Label scoreText = new Label("Score: 0");
     Label timeText = new Label("00:00");
