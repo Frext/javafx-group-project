@@ -8,7 +8,7 @@ public class Hunter extends Entity {
     public Group implementView(){
         Group group = new Group();
         Circle circle = new Circle(15);
-        circle.setFill(Color.YELLOW);
+        circle.setFill(Color.ORANGE);
 
         // TODO: implement triangle
 

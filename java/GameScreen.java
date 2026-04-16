@@ -34,7 +34,7 @@ public class GameScreen extends StackPane {
         this.setMargin(healthBar, new Insets(10, 20, 0, 0));
         this.setMargin(textBox, new Insets(25, 0, 0, 0));
 
-        this.getChildren().addAll(vacuumBar, healthBar, textBox, );
+        this.getChildren().addAll(vacuumBar, healthBar, textBox, new Ripper(0,0,true).getView());
     }
 
     public void updateVacuum(double percentage){
