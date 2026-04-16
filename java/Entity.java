@@ -1,18 +1,29 @@
 package com.group1.groupproject;
 
+import javafx.scene.Group;
+import javafx.scene.Node;
+
 public abstract class Entity {
     protected double x,y;
-    protected double speedX, speedY;
+    protected Group view;
     protected boolean isVisible = true;
 
     public Entity(double x, double y, boolean isVisible){
         this.x = x;
         this.y = y;
         this.isVisible = isVisible;
+        this.view = implementView();
 
-        draw();
+        view.setLayoutX(x);
+        view.setLayoutY(y);
+        view.setVisible(isVisible);
     }
+
     public abstract void move(double minX, double maxX, double minY, double maxY);
 
-    public abstract void draw();
+    public abstract Group implementView();
+
+    public Node getView(){
+        return view;
+    }
 }

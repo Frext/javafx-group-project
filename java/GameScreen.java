@@ -1,5 +1,6 @@
 package com.group1.groupproject;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -29,11 +30,11 @@ public class GameScreen extends StackPane {
         textBox.setAlignment(Pos.TOP_CENTER);
 
 
-        setMargin(vacuumBar, new javafx.geometry.Insets(10,0 ,0,20));
-        setMargin(healthBar, new javafx.geometry.Insets(10, 20, 0, 0));
-        setMargin(textBox, new javafx.geometry.Insets(25, 0, 0, 0));
+        this.setMargin(vacuumBar, new Insets(10,0 ,0,20));
+        this.setMargin(healthBar, new Insets(10, 20, 0, 0));
+        this.setMargin(textBox, new Insets(25, 0, 0, 0));
 
-        this.getChildren().addAll(vacuumBar, healthBar, textBox);
+        this.getChildren().addAll(vacuumBar, healthBar, textBox, );
     }
 
     public void updateVacuum(double percentage){
