@@ -15,7 +15,7 @@ public class Ripper extends Entity implements Enemy{
     // Restricted movements for NPC
     Bounds bounds = view.getBoundsInParent();
     @Override
-    public void move(double minX, double maxX, double minY, double maxY) {
+    public void move(double minX, double minY, double maxX, double maxY) {
     	if (bounds.getMinX() <= minX || bounds.getMaxX() >= maxX) {
     		Vx = -Vx;
           }
