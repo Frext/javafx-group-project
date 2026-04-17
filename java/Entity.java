@@ -19,7 +19,7 @@ public abstract class Entity {
         view.setVisible(isVisible);
     }
 
-    public abstract void move(double minX, double maxX, double minY, double maxY);
+    public abstract void move(double minX, double minY, double maxX, double maxY);
 
     public abstract Group implementView();
 
