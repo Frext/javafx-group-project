@@ -7,18 +7,22 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 public class Ripper extends Entity implements Enemy{
+	private double Vx = Randomizer.initialVelocity();
+	private double Vy = Randomizer.initialVelocity();
 	public Ripper(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
     }
     // Restricted movements for NPC
-    Bounds bounds = view.getBoundsInParent();
-    @Override
-    public void move(double minX, double minY, double maxX, double maxY) {
+    
+	public void move(double minX, double minY, double maxX, double maxY) {
+    	view.setLayoutX(view.getLayoutX() + Vx);
+        view.setLayoutY(view.getLayoutY() + Vy);
+        Bounds bounds = view.getBoundsInParent();
     	if (bounds.getMinX() <= minX || bounds.getMaxX() >= maxX) {
-    		Randomizer.VxChanger();;
+    		Vx = -Vx;
           }
           if (bounds.getMinY() <= minY || bounds.getMaxY() >= maxY) {
-    		Randomizer.VyChanger();
+    		Vy = -Vy;
           }
     }
 

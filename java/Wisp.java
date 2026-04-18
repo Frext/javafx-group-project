@@ -11,6 +11,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class Wisp extends Entity implements Enemy{
+	private double Vx = Randomizer.initialVelocity();
+	private double Vy = Randomizer.initialVelocity();
     public Wisp(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
     }
@@ -19,14 +21,17 @@ public class Wisp extends Entity implements Enemy{
         // TODO
     } 
     // Restricted movements for NPC
-    Bounds bounds = view.getBoundsInParent();
+    
     @Override
     public void move(double minX, double minY, double maxX, double maxY) {
+    	view.setLayoutX(view.getLayoutX() + Vx);
+        view.setLayoutY(view.getLayoutY() + Vy);
+        Bounds bounds = view.getBoundsInParent();
     	if (bounds.getMinX() <= minX || bounds.getMaxX() >= maxX) {
-    		Randomizer.VxChanger();;
+    		Vx = -Vx;
           }
           if (bounds.getMinY() <= minY || bounds.getMaxY() >= maxY) {
-    		Randomizer.VyChanger();
+    		Vy = -Vy;
           }
     }
 

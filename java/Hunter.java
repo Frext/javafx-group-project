@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Rotate;
-
 public class Hunter extends Entity {
 	
 	private boolean isWPressed;
@@ -48,10 +47,10 @@ public class Hunter extends Entity {
     	
     	scene.setOnKeyPressed(e -> {
     		switch(e.getCode()) {
-    			case KeyCode.W: isWPressed = true; break;
-    			case KeyCode.A: isAPressed = true; break;
-    			case KeyCode.S: isSPressed = true; break;
-    			case KeyCode.D: isDPressed = true; break;
+    			case KeyCode.W: isWPressed = true;isSPressed = false; break;
+    			case KeyCode.A: isAPressed = true;isDPressed = false; break;
+    			case KeyCode.S: isSPressed = true;isWPressed = false; break;
+    			case KeyCode.D: isDPressed = true;isAPressed = false; break;
     			case KeyCode.SPACE: triangle.setFill(Color.RED);
     		}
     	});

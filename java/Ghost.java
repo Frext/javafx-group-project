@@ -6,6 +6,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class Ghost extends Entity implements Enemy{
+	private double Vx = Randomizer.initialVelocity();
+	private double Vy = Randomizer.initialVelocity();
     public Ghost(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
         
@@ -19,11 +21,14 @@ public class Ghost extends Entity implements Enemy{
     	Bounds bounds = view.getBoundsInParent();
     @Override
     public void move(double minX, double minY, double maxX, double maxY) {
+    	view.setLayoutX(view.getLayoutX() + Vx);
+        view.setLayoutY(view.getLayoutY() + Vy);
+        Bounds bounds = view.getBoundsInParent();
     	if (bounds.getMinX() <= minX || bounds.getMaxX() >= maxX) {
-    		Randomizer.VxChanger();;
+    		Vx = -Vx;
           }
           if (bounds.getMinY() <= minY || bounds.getMaxY() >= maxY) {
-    		Randomizer.VyChanger();
+    		Vy = -Vy;
           }
     }
     @Override
