@@ -93,15 +93,15 @@ public class Hunter extends Entity {
     	if(isDPressed)
     		tempX += speed;
     	
-    	//to check these temporary x and y coordinates if these are in the playable area
-    	if(tempX < minX)
-    		tempX = minX;
-    	if(tempY< minY)
-    		tempY = minY;
-    	if(tempX > maxX)
-    		tempX = maxX;
-    	if(tempY > maxY)
-    		tempY = maxY;
+    	//to check these temporary x and y coordinates if these are in the playable area !! OUR RADIUS IS 15
+    	if(tempX - 15 < minX)
+    		tempX = minX + 15;
+    	if(tempY - 15 < minY)
+    		tempY = minY + 15;
+    	if(tempX + 15 > maxX)
+    		tempX = maxX - 15;
+    	if(tempY + 15> maxY)
+    		tempY = maxY - 15;
     	
     	//to assign the temporary coordinates to real coordinates
     	this.x = tempX;
