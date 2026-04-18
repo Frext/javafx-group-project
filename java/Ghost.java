@@ -20,7 +20,7 @@ public class Ghost extends Entity implements Enemy{
     @Override
     public void move(double minX, double minY, double maxX, double maxY) {
     	if (bounds.getMinX() <= minX || bounds.getMaxX() >= maxX) {
-    		Randomizer.VxChanger();;
+    		Randomizer.VxChanger();
           }
           if (bounds.getMinY() <= minY || bounds.getMaxY() >= maxY) {
     		Randomizer.VyChanger();
