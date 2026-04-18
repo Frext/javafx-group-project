@@ -1,5 +1,3 @@
-
-
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -7,19 +5,47 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 public class Ripper extends Entity implements Enemy{
+	
+	double Vx;
+	double Vy;
+	
 	public Ripper(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
+        this.Vx = Randomizer.setV();
+        this.Vy = Randomizer.setV();
     }
-    // Restricted movements for NPC
-    Bounds bounds = view.getBoundsInParent();
+	
     @Override
     public void move(double minX, double minY, double maxX, double maxY) {
-    	if (bounds.getMinX() <= minX || bounds.getMaxX() >= maxX) {
-    		Randomizer.VxChanger();;
-          }
-          if (bounds.getMinY() <= minY || bounds.getMaxY() >= maxY) {
-    		Randomizer.VyChanger();
-          }
+    	
+    	double tempX = this.x;
+    	double tempY = this.y;
+    	
+    	tempX += Vx;
+    	tempY += Vy;
+    	
+    	if(tempX < minX) {
+    		tempX = minX;
+    		Vx *= -1;
+    	}
+    	if(tempY < minY) {
+    		tempY = minY;
+    		Vy *= -1;
+    	}
+    	if(tempX > maxX) {
+    		tempX = maxX;
+    		Vx *= -1;
+    	}
+    	if(tempY > maxY) {
+    		tempY = maxY;
+    		Vy *= -1;
+    	}
+    	
+    	this.x = tempX;
+    	this.y = tempY;
+    	
+    	this.view.setLayoutX(this.x);
+    	this.view.setLayoutY(this.y);
     }
 
     @Override
