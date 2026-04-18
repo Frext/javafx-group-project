@@ -1,5 +1,3 @@
-
-
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -11,11 +9,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class Wisp extends Entity implements Enemy{
+	
 	private double Vx = Randomizer.initialVelocity();
 	private double Vy = Randomizer.initialVelocity();
+	
     public Wisp(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
     }
+	
     @Override
     public void applyScannerEffect(boolean isInsideTriangle) {
         // TODO
