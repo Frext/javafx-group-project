@@ -6,8 +6,8 @@ import javafx.scene.shape.Polygon;
 
 public class Ripper extends Entity implements Enemy{
 	
-	double Vx;
-	double Vy;
+	private double Vx;
+	private double Vy;
 	
 	public Ripper(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
