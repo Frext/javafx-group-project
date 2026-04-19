@@ -1,14 +1,16 @@
+
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class Ghost extends Entity implements Enemy{
-	
 	private double Vx = Randomizer.initialVelocity();
 	private double Vy = Randomizer.initialVelocity();
-	
+	private int time;
+	private ColorAdjust adjust = new ColorAdjust();
     public Ghost(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
         
@@ -16,9 +18,22 @@ public class Ghost extends Entity implements Enemy{
 
     @Override
     public void applyScannerEffect(boolean isInsideTriangle) {
-        // TODO
-    }
-	
+		if (isInsideTriangle) {
+			time++;
+			if (time % 20 < 10) {
+				adjust.setBrightness(-1.0);
+				view.setEffect(adjust);
+				view.setOpacity(1.0);
+			} else {
+				view.setEffect(null);
+			}
+		} else {
+			view.setEffect(null);
+		}
+
+	}
+    // Restricted movements for NPC
+    	Bounds bounds = view.getBoundsInParent();
     @Override
     public void move(double minX, double minY, double maxX, double maxY) {
     	view.setLayoutX(view.getLayoutX() + Vx);
@@ -31,7 +46,6 @@ public class Ghost extends Entity implements Enemy{
     		Vy = -Vy;
           }
     }
-	
     @Override
     public Group implementView() {
         Circle face = new Circle(0,0, 15);

@@ -1,26 +1,39 @@
+
+
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class Wisp extends Entity implements Enemy{
-	
 	private double Vx = Randomizer.initialVelocity();
 	private double Vy = Randomizer.initialVelocity();
-	
+	private int time;
+	private ColorAdjust adjust = new ColorAdjust();
     public Wisp(double x, double y, boolean isVisible) {
         super(x, y, isVisible);
     }
-	
     @Override
     public void applyScannerEffect(boolean isInsideTriangle) {
-        // TODO
-    } 
+		if (isInsideTriangle) {
+			time++;
+			if (time % 20 < 10) {
+				adjust.setBrightness(1.0);
+				view.setEffect(adjust);
+			} else {
+				view.setEffect(null);
+			}
+		} else {
+			view.setEffect(null);
+		}
+
+	}
     // Restricted movements for NPC
     
     @Override

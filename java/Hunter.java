@@ -1,3 +1,5 @@
+
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -14,12 +16,11 @@ public class Hunter extends Entity {
 	private double speed = 1.5;
 	private Polygon triangle;
 	private Rotate scannerRotate;
-	private final static double radius = 15;
 	
 	//to create the hunter view
     public Group implementView(){
         Group group = new Group();
-        Circle circle = new Circle(radius);
+        Circle circle = new Circle(15);
         circle.setFill(Color.ORANGE);
 
         triangle = new Polygon();
@@ -94,14 +95,14 @@ public class Hunter extends Entity {
     		tempX += speed;
     	
     	//to check these temporary x and y coordinates if these are in the playable area !! OUR RADIUS IS 15
-    	if(tempX - radius < minX)
-    		tempX = minX + radius;
-    	if(tempY - radius < minY)
-    		tempY = minY + radius;
-    	if(tempX + radius > maxX)
-    		tempX = maxX - radius;
-    	if(tempY + radius > maxY)
-    		tempY = maxY - radius;
+    	if(tempX - 15 < minX)
+    		tempX = minX + 15;
+    	if(tempY - 15 < minY)
+    		tempY = minY + 15;
+    	if(tempX + 15 > maxX)
+    		tempX = maxX - 15;
+    	if(tempY + 15> maxY)
+    		tempY = maxY - 15;
     	
     	//to assign the temporary coordinates to real coordinates
     	this.x = tempX;
@@ -110,4 +111,10 @@ public class Hunter extends Entity {
     	this.view.setLayoutX(this.x);
     	this.view.setLayoutY(this.y);
     }
+    public Bounds vacuumArea() {
+		return this.triangle.localToScene(this.triangle.getBoundsInLocal());
+	}
+    public Bounds hunterBounds() {
+		return this.getView().localToScene(this.getView().getBoundsInLocal());
+	}
 }

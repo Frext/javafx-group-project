@@ -8,11 +8,15 @@ import javafx.scene.paint.Color;
 
 public class AdkDeneme extends Application {
 	private int score = 0;
+	private int health = 100;
 	Label scoreLabel = new Label("Score: " + score);
+	Label healthLabel = new Label("Health: " + health);
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		scoreLabel.setStyle(
+				"-fx-font-family: 'Cherif'; -fx-text-fill: black; -fx-font-size: 36px; -fx-font-weight: bold;");
+		healthLabel.setStyle(
 				"-fx-font-family: 'Cherif'; -fx-text-fill: black; -fx-font-size: 36px; -fx-font-weight: bold;");
 		PlayableArea area = new PlayableArea(Config.get("level_1_playable_area_x"),
 				Config.get("level_1_playable_area_y"), Config.get("level_1_playable_area_width"),
@@ -24,10 +28,17 @@ public class AdkDeneme extends Application {
 		Ripper ripper = new Ripper(Randomizer.getX(area), Randomizer.getY(area), true);
 		Wisp wisp = new Wisp(Randomizer.getX(area), Randomizer.getY(area), true);
 		Ghost ghost = new Ghost(Randomizer.getX(area), Randomizer.getY(area), true);
+		
 		area.getChildren().addAll(hunter.getView(), ripper.getView(), wisp.getView(), ghost.getView());
 		area.getChildren().add(scoreLabel);
+		area.getChildren().add(healthLabel);
+		
 		scoreLabel.setLayoutX(((area.getMinX() + area.getMaxX()) / 2) - 10);
 		scoreLabel.setLayoutY(10);
+		
+		healthLabel.setLayoutX(10);
+		healthLabel.setLayoutY(10);
+		
 		AnimationTimer time = new AnimationTimer() {
 
 			@Override
@@ -39,7 +50,9 @@ public class AdkDeneme extends Application {
 				
 				score = Collision.handleVacuum(hunter, ghost, ripper, wisp, area, score);
 				scoreLabel.setText("Score: " + score);
-
+				
+				health = Health.damage(health, hunter, ghost, ripper, wisp, area);
+				healthLabel.setText("Health: " + health);
 			}
 		};
 		time.start();
