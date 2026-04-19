@@ -10,13 +10,11 @@ public class AdkDeneme extends Application {
 	private int score = 0;
 	private double health = 100.0;
 	Label scoreLabel = new Label("Score: " + score);
-	Label healthLabel = new Label("Health: " + (int)health);
+	BarPane healthPane = new BarPane("Health", Color.RED);
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		scoreLabel.setStyle(
-				"-fx-font-family: 'Cherif'; -fx-text-fill: black; -fx-font-size: 36px; -fx-font-weight: bold;");
-		healthLabel.setStyle(
 				"-fx-font-family: 'Cherif'; -fx-text-fill: black; -fx-font-size: 36px; -fx-font-weight: bold;");
 		PlayableArea area = new PlayableArea(Config.get("level_1_playable_area_x"),
 				Config.get("level_1_playable_area_y"), Config.get("level_1_playable_area_width"),
@@ -31,13 +29,13 @@ public class AdkDeneme extends Application {
 		
 		area.getChildren().addAll(hunter.getView(), ripper.getView(), wisp.getView(), ghost.getView());
 		area.getChildren().add(scoreLabel);
-		area.getChildren().add(healthLabel);
+		area.getChildren().add(healthPane);
 		
 		scoreLabel.setLayoutX(((area.getMinX() + area.getMaxX()) / 2) - 10);
 		scoreLabel.setLayoutY(10);
 		
-		healthLabel.setLayoutX(10);
-		healthLabel.setLayoutY(10);
+		healthPane.setLayoutX(10);
+		healthPane.setLayoutY(10);
 		
 		AnimationTimer time = new AnimationTimer() {
 
@@ -52,7 +50,7 @@ public class AdkDeneme extends Application {
 				scoreLabel.setText("Score: " + score);
 				
 				health = Health.damage(health, hunter, ghost, ripper, wisp, area);
-				healthLabel.setText("Health: " + (int)health);
+				healthPane.setHealth(health);
 			}
 		};
 		time.start();
