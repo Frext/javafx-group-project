@@ -2,6 +2,7 @@
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,11 +17,13 @@ public class Hunter extends Entity {
 	private double speed = 1.5;
 	private Polygon triangle;
 	private Rotate scannerRotate;
-	
+	private Circle circle;
+	private int time;
+	private ColorAdjust adjust = new ColorAdjust();
 	//to create the hunter view
     public Group implementView(){
         Group group = new Group();
-        Circle circle = new Circle(15);
+        circle = new Circle(15);
         circle.setFill(Color.ORANGE);
 
         triangle = new Polygon();
@@ -115,6 +118,19 @@ public class Hunter extends Entity {
 		return this.triangle.localToScene(this.triangle.getBoundsInLocal());
 	}
     public Bounds hunterBounds() {
-		return this.getView().localToScene(this.getView().getBoundsInLocal());
+		return this.circle.localToScene(this.circle.getBoundsInLocal());
+	}
+    public void applyDamageEffect(boolean isTakingDamage) {
+    	if (isTakingDamage) {
+			time++;
+			if (time % 20 < 10) {
+				adjust.setBrightness(1.0);
+				circle.setEffect(adjust);
+			} else {
+				circle.setEffect(null);
+			}
+		} else {
+			circle.setEffect(null);
+		}
 	}
 }

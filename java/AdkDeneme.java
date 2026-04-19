@@ -8,9 +8,9 @@ import javafx.scene.paint.Color;
 
 public class AdkDeneme extends Application {
 	private int score = 0;
-	private int health = 100;
+	private double health = 100.0;
 	Label scoreLabel = new Label("Score: " + score);
-	Label healthLabel = new Label("Health: " + health);
+	Label healthLabel = new Label("Health: " + (int)health);
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -52,7 +52,7 @@ public class AdkDeneme extends Application {
 				scoreLabel.setText("Score: " + score);
 				
 				health = Health.damage(health, hunter, ghost, ripper, wisp, area);
-				healthLabel.setText("Health: " + health);
+				healthLabel.setText("Health: " + (int)health);
 			}
 		};
 		time.start();
