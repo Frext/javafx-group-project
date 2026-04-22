@@ -1,3 +1,4 @@
+package com.group1.groupproject;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

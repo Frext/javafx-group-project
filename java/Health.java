@@ -1,9 +1,12 @@
+package com.group1.groupproject;
+
 import javafx.geometry.Bounds;
 
 public class Health {
 	public static double damage(double health, Hunter hunter, Ghost ghost, Ripper ripper, Wisp wisp,
 			PlayableArea area) {
 		boolean isDamaged = false;
+
 		if (area.getChildren().contains(ghost.getView())) {
 			Bounds ghostBounds = ghost.getView().localToScene(ghost.getView().getBoundsInLocal());
 			if (hunter.hunterBounds().intersects(ghostBounds)) {
@@ -31,6 +34,7 @@ public class Health {
 					health = 0;
 			}
 		}
+
 		hunter.applyDamageEffect(isDamaged);
 		return health;
 	}

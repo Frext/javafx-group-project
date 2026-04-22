@@ -1,7 +1,10 @@
+package com.group1.groupproject;
+
 import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 
 public class Collision {
+	// TODO Update this method to be able to process many enemies rather than just one.
 	public static int handleVacuum(Hunter hunter, Ghost ghost, Ripper ripper, Wisp wisp, PlayableArea area, int score) {
 		if (area.getChildren().contains(ghost.getView())) {
 			Bounds ghostBounds = ghost.getView().localToScene(ghost.getView().getBoundsInLocal());

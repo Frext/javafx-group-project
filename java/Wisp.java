@@ -1,4 +1,4 @@
-
+package com.group1.groupproject;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;

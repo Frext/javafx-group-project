@@ -1,3 +1,4 @@
+package com.group1.groupproject;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -48,7 +49,6 @@ public class Hunter extends Entity {
     
     //to determine which key is pressed
     private void setupMovementControl(Scene scene) {
-    	
     	scene.setOnKeyPressed(e -> {
     		switch(e.getCode()) {
     			case KeyCode.W: isWPressed = true;isSPressed = false; break;

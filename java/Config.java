@@ -1,3 +1,4 @@
+package com.group1.groupproject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +21,7 @@ public class Config {//This class stores the data in config.txt file
 			while(input.hasNext()) {
 				
 				String s = input.nextLine();
-				if(s.length() != 0) {
+				if(!s.isEmpty()) {
 					String[] list = s.split(":");
 					String key = list[0].trim();
 					int value = Integer.parseInt(list[1].trim());

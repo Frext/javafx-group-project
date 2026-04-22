@@ -1,3 +1,5 @@
+package com.group1.groupproject;
+
 import java.util.Random;
 
 public class Randomizer {
