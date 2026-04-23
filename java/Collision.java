@@ -1,10 +1,15 @@
-package com.group1.groupproject;
+
+import java.util.ArrayList;
+
 
 import javafx.geometry.Bounds;
 
 public class Collision {
 	// TODO Update this method to be able to process many enemies rather than just one.
-	public static int handleVacuum(Hunter hunter, Ghost ghost, Ripper ripper, Wisp wisp, PlayableArea area, int score) {
+	public static int handleVacuum(ArrayList<Enemy> enemies, Hunter hunter, PlayableArea area, int score) {
+		for (int i = 0; i < enemies.size(); i++) {
+			if (enemies.get(i) instanceof Ghost) {
+				Ghost ghost = (Ghost)(enemies.get(i));
 		if (area.getChildren().contains(ghost.getView())) {
 			Bounds ghostBounds = ghost.getView().localToScene(ghost.getView().getBoundsInLocal());
 			if (hunter.vacuumArea().intersects(ghostBounds) && !hunter.hunterBounds().intersects(ghostBounds)) {
@@ -20,6 +25,9 @@ public class Collision {
 				ghost.applyScannerEffect(false);
 			}
 		}
+			}
+			if (enemies.get(i) instanceof Ripper) {
+				Ripper ripper = (Ripper)(enemies.get(i));
 		if (area.getChildren().contains(ripper.getView())) {
 			Bounds ripperBounds = ripper.getView().localToScene(ripper.getView().getBoundsInLocal());
 			if (hunter.vacuumArea().intersects(ripperBounds) && !hunter.hunterBounds().intersects(ripperBounds)) {
@@ -35,6 +43,9 @@ public class Collision {
 				ripper.applyScannerEffect(false);
 			}
 		}
+			}
+			if (enemies.get(i) instanceof Wisp) {
+				Wisp wisp = (Wisp)(enemies.get(i));
 		if (area.getChildren().contains(wisp.getView())) {
 			Bounds wispBounds = wisp.getView().localToScene(wisp.getView().getBoundsInLocal());
 			if (hunter.vacuumArea().intersects(wispBounds) && !hunter.hunterBounds().intersects(wispBounds)) {
@@ -48,9 +59,10 @@ public class Collision {
 			}
 			else {
 				wisp.applyScannerEffect(false);
+				}
 			}
 		}
-
+		}
 		return score;
 	}
 
