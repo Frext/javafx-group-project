@@ -39,8 +39,4 @@ public class BarPane extends VBox {
     public void setFill(double percentage){
         fillRectangle.setHeight(maxBarHeight * Math.clamp(percentage, 0.0, 1.0));
     }
-    public void setHealth(double health){
-        fillRectangle.setHeight(maxBarHeight * health / 100.0);
-        fillRectangle.setY(maxBarHeight - fillRectangle.getHeight());
-    }
 }
