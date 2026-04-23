@@ -6,11 +6,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class HealthToken extends Token{
-	
 	private Circle circle;
 	
-	public HealthToken(double x , double y) {
-		super(x , y);
+	public HealthToken(double x , double y, Runnable healthEffect) {
+		super(x , y, healthEffect);
 	}
 	
 	public Group implementView() {
@@ -26,11 +25,5 @@ public class HealthToken extends Token{
 		group.getChildren().addAll(circle , rec1 , rec2);
 		
 		return group;
-	}
-	
-	public void giveEffect() {
-		//TODO implement effect
-		
-		this.consume();
 	}
 }

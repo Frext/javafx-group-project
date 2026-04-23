@@ -4,14 +4,16 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 
 public abstract class Token {
-	
 	private static int numberOfToken;
 	private double x , y;
 	private Group view;
+
+	private Runnable effect;
 	
-	public Token(double x , double y) {
+	public Token(double x , double y, Runnable effect) {
 		this.x = x;
 		this.y = y;
+		this.effect = effect;
 		
 		this.view = implementView();
 		
@@ -21,7 +23,11 @@ public abstract class Token {
         this.numberOfToken++;
 	}
 	
-	public abstract void giveEffect();
+	public void giveEffect(){
+		this.consume();
+
+		effect.run();
+	}
 	
 	public abstract Group implementView();
 	

@@ -6,12 +6,10 @@ import javafx.scene.Node;
 public abstract class Entity {
     protected double x,y;
     protected Group view;
-    protected boolean isVisible = true;
 
     public Entity(double x, double y, boolean isVisible){
         this.x = x;
         this.y = y;
-        this.isVisible = isVisible;
         this.view = implementView();
 
         view.setLayoutX(x);

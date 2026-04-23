@@ -11,6 +11,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.nio.file.attribute.FileAttribute;
+
 public class Wisp extends Entity implements Enemy{
 	private double Vx = Randomizer.initialVelocity();
 	private double Vy = Randomizer.initialVelocity();
@@ -22,6 +24,8 @@ public class Wisp extends Entity implements Enemy{
     @Override
     public void applyScannerEffect(boolean isInsideTriangle) {
 		if (isInsideTriangle) {
+            view.setVisible(true);
+
 			time++;
 			if (time % 20 < 10) {
 				adjust.setBrightness(1.0);
@@ -30,6 +34,7 @@ public class Wisp extends Entity implements Enemy{
 				view.setEffect(null);
 			}
 		} else {
+            view.setVisible(false);
 			view.setEffect(null);
 		}
 

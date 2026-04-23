@@ -10,8 +10,8 @@ public class RangeToken extends Token{
 	
 	private Circle circle;
 	
-	public RangeToken(double x , double y) {
-		super(x , y);
+	public RangeToken(double x , double y, Runnable rangeEffect) {
+		super(x , y, rangeEffect);
 	}
 	
 	public Group implementView() {
@@ -27,11 +27,5 @@ public class RangeToken extends Token{
 		group.getChildren().addAll(circle , triangle);
 		
 		return group;
-	}
-	
-	public void giveEffect() {
-		//TODO implement effect
-		
-		this.consume();
 	}
 }

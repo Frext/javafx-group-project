@@ -150,4 +150,19 @@ public class Hunter extends Entity {
 	public void disableVacuumEffect(){
 		triangle.setVisible(false);
 	}
+
+	public void increaseVacuumRange(double increaseAmount){
+		// The coordinates below are the original coordinates of the triangle
+		// (0.0 ,0.0 , 100.0, -30.0, 100.0, 30.0)
+
+		// Get 100.0 in the x coordinate from index 2.
+		double baseX = triangle.getPoints().get(2);
+		double newX = baseX + increaseAmount;
+
+		// Keep the ratio between x and y.
+		double newY = newX * 0.3;
+
+		// Set new points
+		triangle.getPoints().setAll(0.0, 0.0, newX, -newY, newX, newY);
+	}
 }

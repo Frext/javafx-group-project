@@ -4,14 +4,12 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Rectangle;
 
 public class EyeToken extends Token{
-	
 	private Circle circle;
 	
-	public EyeToken(double x , double y) {
-		super(x , y);
+	public EyeToken(double x , double y, Runnable eyeEffect) {
+		super(x , y, eyeEffect);
 	}
 	
 	public Group implementView() {
@@ -36,11 +34,5 @@ public class EyeToken extends Token{
 		group.getChildren().addAll(circle , ell , iris , pupil , w);
 		
 		return group;
-	}
-	
-	public void giveEffect() {
-		//TODO implement effect
-		
-		this.consume();
 	}
 }

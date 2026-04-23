@@ -53,4 +53,8 @@ public class Collision {
 
 		return score;
 	}
+
+	public static int handleToken(Hunter hunter, Token token){
+		return 1;
+	}
 }

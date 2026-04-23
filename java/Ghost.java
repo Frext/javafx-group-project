@@ -20,6 +20,8 @@ public class Ghost extends Entity implements Enemy{
     @Override
     public void applyScannerEffect(boolean isInsideTriangle) {
 		if (isInsideTriangle) {
+            view.setVisible(true);
+
 			time++;
 			if (time % 20 < 10) {
 				adjust.setBrightness(-1.0);
@@ -29,6 +31,7 @@ public class Ghost extends Entity implements Enemy{
 				view.setEffect(null);
 			}
 		} else {
+            view.setVisible(false);
 			view.setEffect(null);
 		}
 
