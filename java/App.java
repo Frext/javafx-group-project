@@ -1,4 +1,5 @@
-package com.group1.groupproject;
+
+import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
@@ -11,7 +12,7 @@ import javafx.util.Duration;
 public class App extends Application {
     private double targetHealth = 1.0;
     private boolean isEyeOn = false;
-
+    private ArrayList<Enemy> enemies = new ArrayList<>();
     @Override
     public void init() throws Exception {
         super.init();
@@ -44,7 +45,9 @@ public class App extends Application {
         Ripper ripper = new Ripper(Randomizer.getX(area), Randomizer.getY(area), false);
         Wisp wisp = new Wisp(Randomizer.getX(area), Randomizer.getY(area), false);
         Ghost ghost = new Ghost(Randomizer.getX(area), Randomizer.getY(area), false);
-
+        enemies.add(ripper);
+        enemies.add(ghost);
+        enemies.add(wisp);
         area.getChildren().addAll(hunter.getView(), ripper.getView(), wisp.getView(), ghost.getView());
 
         TokenManager tokenManager = new TokenManager(area, hunter.getView(),
@@ -110,7 +113,7 @@ public class App extends Application {
                 // If the vacuum is not in timeout and the hunter wants to vacuum, turn on the effects.
                 if(hunter.wantsToVacuum() && screen.getVacuum() > VACUUM_THRESHOLD && !isVacuumInTimeout){
                     hunter.enableVacuumEffect();
-                    screen.updateScore(Collision.handleVacuum(hunter, ghost, ripper, wisp, area, screen.getScore()));
+                    screen.updateScore(Collision.handleVacuum(enemies, hunter, area, screen.getScore()));
                     screen.updateVacuum(screen.getVacuum() - 0.008);
                 } else{
                     hunter.disableVacuumEffect();
@@ -162,6 +165,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+    	Config.loadConfig();
         launch(args);
     }
 }
