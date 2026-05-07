@@ -1,4 +1,4 @@
-package myjavaFXprograms;
+
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
@@ -31,7 +31,7 @@ public class GameScreen extends StackPane {
     private double currentVacuum = 1.0;
     private final double VACUUM_THRESHOLD = 0.01;
     private boolean isVacuumInTimeout = false;
-    private boolean isEyeOn = false;
+    private static boolean isEyeOn = false;
     private int score = 0;
     private int levelTimeLimit;
 
@@ -162,6 +162,9 @@ public class GameScreen extends StackPane {
             }
         };
     }
+public static void setIsEyeOn(boolean isEyeOn) {
+	GameScreen.isEyeOn = isEyeOn;
+}
 
     public void updateVacuum(double percentage){
         currentVacuum = Math.clamp(percentage, 0.0, 1.0);
@@ -180,4 +183,5 @@ public class GameScreen extends StackPane {
     public void stopGame() {
         gameLoop.stop();
     }
+   
 }
