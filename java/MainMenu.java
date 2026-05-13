@@ -1,37 +1,24 @@
-package com.group1.groupproject;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class MainMenu extends Pane{
-
-	public MainMenu() {
-		Pane pane = new Pane();
-		pane.setPrefSize(800, 600);
+	
+	private App app;
+	
+	public MainMenu(App app) {
+		this.app = app;
 		
-		ButtonPane startButton = new ButtonPane(100, 400, "START GAME", Color.PURPLE);
-		ButtonPane selectLevelButton = new ButtonPane(100, 460, "SELECT LEVEL", Color.PURPLE);
-		ButtonPane exitButton = new ButtonPane(100, 520, "EXIT", Color.PURPLE);
+		this.setStyle("-fx-background-image: url('file:main.png'); " + "-fx-background-size: cover;");
 		
-		pane.getChildren().add(exitButton);
-		pane.getChildren().add(selectLevelButton);
-		pane.getChildren().add(startButton);
+		ButtonPane start = new ButtonPane(325 , 325 , "Start" , Color.PURPLE);
+		ButtonPane selectLevel = new ButtonPane(325 , 450 , "Select Level" , Color.PURPLE);
+		ButtonPane exit = new ButtonPane(325 , 575 , "Exit" , Color.PURPLE);
 		
-		startButton.setLayoutX(100);
-		startButton.setLayoutY(400);
+		start.setOnMouseClicked(e -> app.startLevel(1));
 		
-		selectLevelButton.setLayoutX(100);
-		selectLevelButton.setLayoutY(460);
+		selectLevel.setOnMouseClicked(e -> app.showLevelSelectMenu());
 		
-		exitButton.setLayoutX(100);
-		exitButton.setLayoutY(520);
+		this.getChildren().addAll(start , selectLevel , exit);
 		
-		// Image homeImage = new Image("");
-		// ImageView homeImageView = new ImageView(homeImage);
-		
-		// Image iconImage = new Image("");
-		//İcon unutma!!! stage.getIcons().add(iconImage);
-		
-		this.getChildren().add(pane);
 	}
 }

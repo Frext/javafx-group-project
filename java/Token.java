@@ -1,5 +1,3 @@
-package com.group1.groupproject;
-
 import javafx.scene.Group;
 import javafx.scene.Node;
 

@@ -1,5 +1,3 @@
-package com.group1.groupproject;
-
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;

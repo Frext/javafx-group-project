@@ -1,5 +1,3 @@
-package com.group1.groupproject;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
@@ -23,12 +21,14 @@ public class PlayableArea extends Pane{
 		
 		playableArea.setOnKeyPressed(e -> {
 		if (e.getCode() == KeyCode.M) {
-			playableArea.setStyle("-fx-border-color: red; -fx-border-width: 1px;");	
+			playableArea.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+			GameScreen.setIsEyeOn(true);
 		}	
 		});
 		
 		playableArea.setOnKeyReleased(e -> {
 			playableArea.setStyle("");
+			GameScreen.setIsEyeOn(false);
 		});
 		this.getChildren().add(playableArea);
 		

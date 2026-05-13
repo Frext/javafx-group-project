@@ -1,72 +1,48 @@
-
 import java.util.ArrayList;
-
 
 import javafx.geometry.Bounds;
 
 public class Collision {
-	// TODO Update this method to be able to process many enemies rather than just one.
-	public static int handleVacuum(ArrayList<Enemy> enemies, Hunter hunter, PlayableArea area, int score) {
-		for (int i = 0; i < enemies.size(); i++) {
-			if (enemies.get(i) instanceof Ghost) {
-				Ghost ghost = (Ghost)(enemies.get(i));
-		if (area.getChildren().contains(ghost.getView())) {
-			Bounds ghostBounds = ghost.getView().localToScene(ghost.getView().getBoundsInLocal());
-			if (hunter.vacuumArea().intersects(ghostBounds) && !hunter.hunterBounds().intersects(ghostBounds)) {
-				ghost.applyScannerEffect(true);
-				ghost.getView().setScaleX(ghost.getView().getScaleX() - 0.01);
-				ghost.getView().setScaleY(ghost.getView().getScaleY() - 0.01);
-				if (ghost.getView().getScaleX() < 0.2) {
-					area.getChildren().remove(ghost.getView());
-					score += 10;
+	
+	public static int handleVacuum(ArrayList<Entity> enemies, Hunter hunter, PlayableArea area, int score) {
+		
+		var iterator = enemies.iterator();
+		
+		while(iterator.hasNext()) {
+			Entity entity = iterator.next();
+			
+			Bounds entityBounds = entity.getView().localToScene(entity.getView().getBoundsInLocal());
+			
+			if (hunter.vacuumArea().intersects(entityBounds) && !hunter.hunterBounds().intersects(entityBounds)) {
+				
+				((Enemy)entity).applyScannerEffect(true);
+				
+				entity.getView().setScaleX(entity.getView().getScaleX() - 0.01);
+				entity.getView().setScaleY(entity.getView().getScaleY() - 0.01);
+				
+				if (entity.getView().getScaleX() < 0.2) {
+					//remove from scene
+					area.getChildren().remove(entity.getView());
+					
+					//remove from the arrayList
+					iterator.remove();
+					
+					//increment the score
+					if (entity instanceof Ghost) {
+						score += 10;
+					} else if (entity instanceof Ripper) {
+						score += 20;
+					} else if (entity instanceof Wisp) {
+						score += 30;
+					}
 				}
-			} 
+			}
+			
 			else {
-				ghost.applyScannerEffect(false);
+				((Enemy)entity).applyScannerEffect(false);
 			}
 		}
-			}
-			if (enemies.get(i) instanceof Ripper) {
-				Ripper ripper = (Ripper)(enemies.get(i));
-		if (area.getChildren().contains(ripper.getView())) {
-			Bounds ripperBounds = ripper.getView().localToScene(ripper.getView().getBoundsInLocal());
-			if (hunter.vacuumArea().intersects(ripperBounds) && !hunter.hunterBounds().intersects(ripperBounds)) {
-				ripper.applyScannerEffect(true);
-				ripper.getView().setScaleX(ripper.getView().getScaleX() - 0.01);
-				ripper.getView().setScaleY(ripper.getView().getScaleY() - 0.01);
-				if (ripper.getView().getScaleX() < 0.2) {
-					area.getChildren().remove(ripper.getView());
-					score += 20;
-				}
-			}
-			else {
-				ripper.applyScannerEffect(false);
-			}
-		}
-			}
-			if (enemies.get(i) instanceof Wisp) {
-				Wisp wisp = (Wisp)(enemies.get(i));
-		if (area.getChildren().contains(wisp.getView())) {
-			Bounds wispBounds = wisp.getView().localToScene(wisp.getView().getBoundsInLocal());
-			if (hunter.vacuumArea().intersects(wispBounds) && !hunter.hunterBounds().intersects(wispBounds)) {
-				wisp.applyScannerEffect(true);
-				wisp.getView().setScaleX(wisp.getView().getScaleX() - 0.01);
-				wisp.getView().setScaleY(wisp.getView().getScaleY() - 0.01);
-				if (wisp.getView().getScaleX() < 0.2) {
-					area.getChildren().remove(wisp.getView());
-					score += 30;
-				}
-			}
-			else {
-				wisp.applyScannerEffect(false);
-				}
-			}
-		}
-		}
+		
 		return score;
-	}
-
-	public static int handleToken(Hunter hunter, Token token){
-		return 1;
 	}
 }

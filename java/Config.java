@@ -1,5 +1,3 @@
-package com.group1.groupproject;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;

@@ -1,5 +1,3 @@
-package com.group1.groupproject;
-
 import javafx.animation.Transition;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
@@ -14,6 +12,8 @@ public class BarPane extends VBox {
 
     private Transition heightTransition;
 
+    private double currentPercentage = 1.0;	
+    
     public BarPane(String text, Color fillColor){
         this.setAlignment(Pos.CENTER);
 
@@ -40,6 +40,11 @@ public class BarPane extends VBox {
     }
 
     public void setFill(double percentage){
-        fillRectangle.setHeight(maxBarHeight * Math.clamp(percentage, 0.0, 1.0));
+    	this.currentPercentage = Math.clamp(percentage, 0.0, 1.0);
+    	fillRectangle.setHeight(maxBarHeight * this.currentPercentage);
+    }
+    
+    public double getPercentage() {
+    	return this.currentPercentage;
     }
 }

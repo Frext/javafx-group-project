@@ -1,5 +1,3 @@
-package com.group1.groupproject;
-
 import java.util.ArrayList;
 import java.util.Random;
 

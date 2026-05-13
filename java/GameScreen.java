@@ -1,25 +1,48 @@
-package com.group1.groupproject;
-
+import javafx.animation.AnimationTimer;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
 
-// We use Pane instead of StackPane because StackPane allows you to set margins whereas Pane doesn't.
 public class GameScreen extends StackPane {
-    Label scoreText = new Label("SCORE: 0");
-    Label timeText = new Label("00:00");
-    BarPane vacuumBar = new BarPane("VACUUM", Color.rgb(157,0,255, 1));
-    BarPane healthBar = new BarPane("HEALTH", Color.rgb(255,0,0, 1));
+    
+    private Label scoreText = new Label("SCORE: 0");
+    private Label timeText = new Label("00:00");
+    private BarPane vacuumBar = new BarPane("VACUUM", Color.rgb(157,0,255, 1));
+    private BarPane healthBar = new BarPane("HEALTH", Color.rgb(255,0,0, 1));
+    
+    private App appManager;
+    private int levelNumber;
+    private PlayableArea area;
+    private Hunter hunter;
+    private EnemyManager enemyManager;
+    private TokenManager tokenManager;
+    private AnimationTimer gameLoop;
+    
+    private double targetHealth = 1.0;
+    private double currentVacuum = 1.0;
+    private final double VACUUM_THRESHOLD = 0.01;
+    private boolean isVacuumInTimeout = false;
+    private static boolean isEyeOn = false;
+    private int score = 0;
+    private int levelTimeLimit;
 
-    int score = 0;
-    double healthPercentage = 1.0;
-    double vacuumPercentage = 1.0;
+    public GameScreen(int levelNumber, App appManager, ImageView backgroundImage) {
+        this.appManager = appManager;
+        this.levelNumber = levelNumber;
 
-    public GameScreen(PlayableArea playableArea, ImageView backgroundImage){
+        this.levelTimeLimit = (int) Config.get("level_" + levelNumber + "_time");
+        
+        area = new PlayableArea(Config.get("level_" + levelNumber + "_playable_area_x") , Config.get("level_" + levelNumber + "_playable_area_y") , Config.get("level_" + levelNumber + "_playable_area_width") , Config.get("level_" + levelNumber + "_playable_area_height"));
+
+        enemyManager = new EnemyManager(levelNumber, area);
+        
         scoreText.setStyle("-fx-font-family: 'Chiller'; -fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;");
         timeText.setStyle("-fx-font-family: 'Chiller'; -fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;");
 
@@ -38,38 +61,125 @@ public class GameScreen extends StackPane {
         this.setMargin(healthBar, new Insets(10, 20, 0, 0));
         this.setMargin(textBox, new Insets(25, 0, 0, 0));
 
-        this.getChildren().addAll(backgroundImage, playableArea, vacuumBar, healthBar, textBox);
+        this.getChildren().addAll(backgroundImage, area, vacuumBar, healthBar, textBox);
     }
+
+    public void initLevel(Scene scene) {
+    	
+        hunter = new Hunter((area.getMinX() + area.getMaxX()) / 2, (area.getMinY() + area.getMaxY()) / 2, scene);
+        area.getChildren().add(hunter.getView());
+
+        setupTokenManager();
+        setupGameLoop();
+    }
+
+    private void setupTokenManager() {
+        tokenManager = new TokenManager(area, hunter.getView(),
+                () -> { targetHealth += Config.get("health_token_increase") / 100.0; } ,
+                
+                () -> {
+                    PauseTransition pause = new PauseTransition(Duration.seconds(Config.get("eye_token_duration")));
+                    pause.setOnFinished(e -> {//to avoid name conflict between event e and entity e , we used entity instead of e
+                        for(Entity entity : enemyManager.getEnemies()) {
+                            entity.getView().setVisible(false);
+                        }
+                        isEyeOn = false;
+                    });
+                    for(Entity entity : enemyManager.getEnemies()) {
+                    	entity.getView().setVisible(true);
+                    }
+                    isEyeOn = true;
+                    pause.play();
+                } ,
+                
+                () -> {
+                    PauseTransition pause = new PauseTransition(Duration.seconds(10));
+                    pause.setOnFinished(e -> hunter.increaseVacuumRange(-Config.get("vacuum_token_increase")));
+                    hunter.increaseVacuumRange(Config.get("vacuum_token_increase"));
+                    pause.play();
+                }
+        );
+    }
+
+    private void setupGameLoop() {
+        gameLoop = new AnimationTimer() {
+            long startTime = -1;
+
+            @Override
+            public void handle(long now) {
+                if (startTime < 0) startTime = now;
+                int elapsedSeconds = (int) ((now - startTime) / 1_000_000_000);
+                int remainingTime = levelTimeLimit - elapsedSeconds;
+                
+                hunter.move(area.getMinX(), area.getMinY(), area.getMaxX(), area.getMaxY());
+                enemyManager.moveAll(area.getMinX(), area.getMinY(), area.getMaxX(), area.getMaxY());
+
+                if (currentVacuum <= VACUUM_THRESHOLD && !isVacuumInTimeout){
+                    isVacuumInTimeout = true;
+                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    pause.setOnFinished(e -> isVacuumInTimeout = false);
+                    pause.play();
+                }
+
+                if(hunter.wantsToVacuum() && currentVacuum > VACUUM_THRESHOLD && !isVacuumInTimeout){
+                    hunter.enableVacuumEffect();
+                    
+                    score = Collision.handleVacuum(enemyManager.getEnemies(), hunter, area, score);
+                    updateScore(score);
+                    currentVacuum -= 0.008;
+                } else {
+                    hunter.disableVacuumEffect();
+                    currentVacuum += 0.001;
+                    
+                    
+                    if(!isEyeOn) {
+                        for(Entity e : enemyManager.getEnemies()) {
+                            ((Enemy)e).applyScannerEffect(false); 
+                        }
+                    }
+                }
+                updateVacuum(currentVacuum);
+                
+                targetHealth = Health.damage(targetHealth, hunter, enemyManager.getEnemies());
+                healthBar.setFill(targetHealth);
+                
+                tokenManager.checkTokenCollision();
+                
+                if(remainingTime >= 0) {
+                    timeText.setText(String.format("%02d:%02d", remainingTime / 60, remainingTime % 60));
+                }
+
+                // 5. KAZANMA VE KAYBETME DURUMLARI 
+                if (targetHealth <= 0 || remainingTime <= 0) {
+                    stopGame();
+                    appManager.showLoseScene(score);
+                } else if (enemyManager.getEnemies().isEmpty()) {
+                    stopGame();
+                    appManager.showWinScene(levelNumber);
+                }
+            }
+        };
+    }
+public static void setIsEyeOn(boolean isEyeOn) {
+	GameScreen.isEyeOn = isEyeOn;
+}
 
     public void updateVacuum(double percentage){
-        vacuumBar.setFill(Math.clamp(percentage, 0.0, 1.0));
-        vacuumPercentage = Math.clamp(percentage, 0.0, 1.0);
+        currentVacuum = Math.clamp(percentage, 0.0, 1.0);
+        vacuumBar.setFill(currentVacuum);
     }
-
-    public void updateHealth(double percentage){
-        healthBar.setFill(Math.clamp(percentage, 0.0, 1.0));
-        healthPercentage = Math.clamp(percentage, 0.0, 1.0);
-    }
-
+    
     public void updateScore(int score){
         scoreText.setText("SCORE: " + score);
-        this.score = score;
     }
-
-    public void updateTime(int seconds){
-        // Show minutes and seconds in MM:SS format
-        timeText.setText(String.format("%02d:%02d", seconds / 60, seconds % 60));
+    
+    public void startGame() {
+        gameLoop.start();
+        tokenManager.startSpawning();
     }
-
-    public int getScore(){
-        return score;
+    
+    public void stopGame() {
+        gameLoop.stop();
     }
-
-    public double getHealth(){
-        return healthPercentage;
-    }
-
-    public double getVacuum() {
-        return vacuumPercentage;
-    }
+   
 }
