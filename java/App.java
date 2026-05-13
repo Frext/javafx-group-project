@@ -1,14 +1,9 @@
-import java.util.ArrayList;
-import javafx.animation.AnimationTimer;
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class App extends Application {
-	
 	private Stage stage;
 	
 	@Override
@@ -33,7 +28,6 @@ public class App extends Application {
 	}
 	
 	public void startLevel(int levelNum) {
-		
 		ImageView background = new ImageView("file:" + levelNum + ".png");
 		
 		GameScreen gameScreen = new GameScreen(levelNum , this , background);
@@ -45,12 +39,14 @@ public class App extends Application {
 		gameScreen.startGame();
 	}
 	
-	public void showLoseScene(int score) {
-		
+	public void showLoseScene(int score, int levelNum) {
+		LosePane losePane = new LosePane(this, score, levelNum);
+		stage.setScene(new Scene(losePane, 1500, 900));
 	}
 
 	public void showWinScene(int levelnum) {
-		
+		WinPane winPane = new WinPane();
+		stage.setScene(new Scene(winPane, 1500, 900));
 	}
 	
     public static void main(String[] args) {

@@ -152,7 +152,7 @@ public class GameScreen extends StackPane {
                 // 5. KAZANMA VE KAYBETME DURUMLARI 
                 if (targetHealth <= 0 || remainingTime <= 0) {
                     stopGame();
-                    appManager.showLoseScene(score);
+                    appManager.showLoseScene(score, levelNumber);
                 } else if (enemyManager.getEnemies().isEmpty()) {
                     stopGame();
                     appManager.showWinScene(levelNumber);
