@@ -6,7 +6,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
-public class TokenManager {
+public class TokenManager {//Emir Aydın 150124001
 	private PlayableArea area;
 	private Random random;
 
@@ -19,7 +19,8 @@ public class TokenManager {
 	private Runnable rangeEffect;
 
 	private Timeline timeline;
-	
+
+	//before the spawn the token , to adjust their effects and the area where they are added and for checking collision , it takes the hunter's node 
 	public TokenManager(PlayableArea area, Node player, Runnable healthEffect, Runnable eyeEffect, Runnable rangeEffect) {
 		this.area = area;
 		this.random = new Random();
@@ -30,7 +31,7 @@ public class TokenManager {
 		this.rangeEffect = rangeEffect;
 	}
 	
-	//to start spawning the tokens
+	//to start spawning the tokens for each 5 seconds if number of tokens is less than 2
 	public void startSpawning() {
 		timeline = new Timeline(new KeyFrame(Duration.seconds(5) , e -> {
 			
@@ -43,12 +44,14 @@ public class TokenManager {
 		timeline.play();
 	}
 
+	//to stop the spawning
 	public void stopSpawning(){
 		if (timeline != null){
 			timeline.stop();
 		}
 	}
-	
+
+	//to create random tokens and add them to tokens arraylist and the area
 	private void spawnRandomToken() {
 		double x = Randomizer.getX(this.area);
 		double y = Randomizer.getY(this.area);
@@ -74,6 +77,7 @@ public class TokenManager {
 		this.area.getChildren().add(newToken.getView());
 	}
 
+	//to check the collision and apply their effects and remove it from the arraylist
 	public void checkTokenCollision(){
 		var iterator = tokens.iterator();
 
@@ -97,6 +101,7 @@ public class TokenManager {
 		}
 	}
 
+	//to restart the arrayList
 	public void flush(){
 		tokens = new ArrayList<>();
 		Token.flushTokens();
