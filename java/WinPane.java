@@ -16,7 +16,7 @@ public class WinPane extends VBox{
 		subText.setStyle("-fx-font-family: 'Chiller'; -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;");
 		ButtonPane button = new ButtonPane(0, 200, levelNum == 3 ? "MAIN MENU" : "NEXT LEVEL", Color.PURPLE);
 		button.setMaxSize(250, 100);
-		button.setStyle("-fx-font-size: 12px");
+		button.setStyle("-fx-font-size: 12px; -fx-background-color: purple;");
 		button.getText().setMinWidth(250);
 		button.setOnMouseClicked(e -> {
 			if (levelNum == 3){
