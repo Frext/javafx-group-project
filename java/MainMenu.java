@@ -5,7 +5,9 @@ public class MainMenu extends Pane{
 	
 	private App app;
 	
-	public MainMenu(App app) {
+	public MainMenu(App app) {//to create teh main menu Emir Aydın 150124001
+
+		//we took the main class (App) as a parameter because main class keeps the stage and we need it to change the scene
 		this.app = app;
 		
 		this.setStyle("-fx-background-image: url('file:main.png'); " + "-fx-background-size: cover;");
