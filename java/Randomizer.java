@@ -11,7 +11,7 @@ public class Randomizer { // Abdullah Derviş Kombıçak 150124009 && Emir Aydı
 		return x;
 	}
 
-	//to spawn enemies random locations and random velocities
+	//to spawn enemies random locations and random velocities Abdullah Derviş Kombıçak 150124009
 	public static double initialVelocity() {
 		return random.nextBoolean() ? 1.0 : -1.0;
 	}
