@@ -5,11 +5,13 @@ import javafx.scene.shape.Ellipse;
 
 public class EyeToken extends Token{
 	private Circle circle;
-	
+
+	//for constructor chaining Emir Aydın 150124001
 	public EyeToken(double x , double y, Runnable eyeEffect) {
 		super(x , y, eyeEffect);
 	}
-	
+
+	//for creating the view of the token and return it for adding the playable area Emir Aydın 150124001
 	public Group implementView() {
 		
 		circle = new Circle(0 , 0 , 12);
