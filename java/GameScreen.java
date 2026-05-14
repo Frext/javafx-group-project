@@ -28,6 +28,9 @@ public class GameScreen extends StackPane {
     private double targetHealth = 1.0;
     private double currentHealth = 1.0;
     private double currentVacuum = 1.0;
+
+    private final double vacuumDecrease = Config.get("vacuum_decrease");
+    private final double vacuumIncrease = Config.get("vacuum_increase");
     private final double VACUUM_THRESHOLD = 0.01;
     private boolean isVacuumInTimeout = false;
     private static boolean isEyeOn = false;
@@ -127,10 +130,10 @@ public class GameScreen extends StackPane {
                     
                     score = Collision.handleVacuum(enemyManager.getEnemies(), hunter, area, score);
                     updateScore(score);
-                    currentVacuum -= 0.008;
+                    currentVacuum -= vacuumDecrease * 0.0025;
                 } else {
                     hunter.disableVacuumEffect();
-                    currentVacuum += 0.001;
+                    currentVacuum += vacuumIncrease * 0.0025;
                     
                     
                     if(!isEyeOn) {
