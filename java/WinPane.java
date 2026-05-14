@@ -14,12 +14,18 @@ public class WinPane extends VBox{
 		title.setStyle("-fx-font-family: 'Chiller'; -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;");
 		Label subText = new Label("YOU'VE VACUUMED ALL THE GHOSTS");
 		subText.setStyle("-fx-font-family: 'Chiller'; -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;");
-		ButtonPane nextLevelButton = new ButtonPane(0, 200, "NEXT LEVEL", Color.PURPLE);
-		nextLevelButton.setMaxSize(250, 100);
-		nextLevelButton.setStyle("-fx-font-size: 12px");
-		nextLevelButton.getText().setMinWidth(250);
-		//nextLevelButton.setOnMouseClicked(e -> app.startLevel(Math.));
-		this.getChildren().addAll(title, subText, nextLevelButton);
+		ButtonPane button = new ButtonPane(0, 200, levelNum == 3 ? "MAIN MENU" : "NEXT LEVEL", Color.PURPLE);
+		button.setMaxSize(250, 100);
+		button.setStyle("-fx-font-size: 12px");
+		button.getText().setMinWidth(250);
+		button.setOnMouseClicked(e -> {
+			if (levelNum == 3){
+				app.showMainMenu();
+			} else{
+				app.startLevel(levelNum + 1);
+			}
+		});
+		this.getChildren().addAll(title, subText, button);
 	}
 	
 }
