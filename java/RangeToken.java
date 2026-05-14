@@ -4,14 +4,16 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 
-public class RangeToken extends Token{
+public class RangeToken extends Token{//Emir Aydın 150124001
 	
 	private Circle circle;
-	
+
+	//for constructor chaining
 	public RangeToken(double x , double y, Runnable rangeEffect) {
 		super(x , y, rangeEffect);
 	}
-	
+
+	//to create the view of the token
 	public Group implementView() {
 		
 		circle = new Circle(0 , 0 , 12);
