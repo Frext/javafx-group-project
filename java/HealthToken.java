@@ -3,13 +3,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-public class HealthToken extends Token{
+public class HealthToken extends Token{ //Emir Aydın 150124001
 	private Circle circle;
-	
+
+	//for constructor chaining
 	public HealthToken(double x , double y, Runnable healthEffect) {
 		super(x , y, healthEffect);
 	}
-	
+
+	//to create view of the token
 	public Group implementView() {
 		
 		circle = new Circle(0 , 0 , 12);
