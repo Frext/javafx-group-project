@@ -84,12 +84,12 @@ public class GameScreen extends StackPane {
                         for(Entity entity : enemyManager.getEnemies()) {
                             entity.getView().setVisible(false);
                         }
-                        isEyeOn = false;
+                        setIsEyeOn(false);
                     });
                     for(Entity entity : enemyManager.getEnemies()) {
                     	entity.getView().setVisible(true);
                     }
-                    isEyeOn = true;
+                    setIsEyeOn(true);
                     pause.play();
                 } ,
                 
@@ -166,7 +166,6 @@ public class GameScreen extends StackPane {
                     timeText.setText(String.format("%02d:%02d", remainingTime / 60, remainingTime % 60));
                 }
 
-                // 5. KAZANMA VE KAYBETME DURUMLARI 
                 if (targetHealth <= 0 || remainingTime <= 0) {
                     stopGame();
                     appManager.showLoseScene(score, levelNumber);
@@ -177,9 +176,9 @@ public class GameScreen extends StackPane {
             }
         };
     }
-public static void setIsEyeOn(boolean isEyeOn) {
-	GameScreen.isEyeOn = isEyeOn;
-}
+    public static void setIsEyeOn(boolean isEyeOn) {
+	    GameScreen.isEyeOn = isEyeOn;
+    }
 
     public void updateVacuum(double percentage){
         currentVacuum = Math.clamp(percentage, 0.0, 1.0);
@@ -202,6 +201,8 @@ public static void setIsEyeOn(boolean isEyeOn) {
     
     public void stopGame() {
         gameLoop.stop();
+        tokenManager.stopSpawning();
+        tokenManager.flush();
     }
    
 }

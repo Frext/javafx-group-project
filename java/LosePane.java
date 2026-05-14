@@ -6,7 +6,8 @@ import javafx.scene.paint.Color;
 
 public class LosePane extends VBox {
 
-    public LosePane(App app, int score, int levelNum) {        this.setPrefSize(1500, 900);
+    public LosePane(App app, int score, int levelNum) {
+        this.setPrefSize(1500, 900);
         this.setAlignment(Pos.CENTER);
         this.setSpacing(40);
         this.setStyle("-fx-background-color: #f4f4f4;");
@@ -27,6 +28,6 @@ public class LosePane extends VBox {
 
         buttonBox.getChildren().addAll(retryBtn, menuBtn);
         
-            this.getChildren().addAll(title, scoreLabel, buttonBox);
+        this.getChildren().addAll(title, scoreLabel, buttonBox);
     }
 }

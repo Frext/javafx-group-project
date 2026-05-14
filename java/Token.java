@@ -40,4 +40,8 @@ public abstract class Token {
 	public static int getNumberOfToken() {
 		return numberOfToken;
 	}
+
+	public static void flushTokens(){
+		numberOfToken = 0;
+	}
 }

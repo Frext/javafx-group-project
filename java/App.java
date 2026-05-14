@@ -1,10 +1,12 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
 	private Stage stage;
+	private StackPane rootPane;
 	
 	@Override
 	public void init() throws Exception {
@@ -29,10 +31,12 @@ public class App extends Application {
 	
 	public void startLevel(int levelNum) {
 		ImageView background = new ImageView("file:" + levelNum + ".png");
-		
 		GameScreen gameScreen = new GameScreen(levelNum , this , background);
-		
-		Scene scene = new Scene(gameScreen , 1500 , 900);
+
+		rootPane = new StackPane();
+		rootPane.getChildren().add(gameScreen);
+
+		Scene scene = new Scene(rootPane, 1500 , 900);
 		stage.setScene(scene);
 		
 		gameScreen.initLevel(scene);
@@ -44,9 +48,11 @@ public class App extends Application {
 		stage.setScene(new Scene(losePane, 1500, 900));
 	}
 
-	public void showWinScene(int levelnum) {
-		WinPane winPane = new WinPane();
-		stage.setScene(new Scene(winPane, 1500, 900));
+	public void showWinScene(int levelNum) {
+		WinPane winPane = new WinPane(this, levelNum);
+		winPane.setMaxSize(500, 300);
+
+		rootPane.getChildren().add(winPane);
 	}
 	
     public static void main(String[] args) {

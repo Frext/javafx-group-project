@@ -17,6 +17,8 @@ public class TokenManager {
 	private Runnable healthEffect;
 	private Runnable eyeEffect;
 	private Runnable rangeEffect;
+
+	private Timeline timeline;
 	
 	public TokenManager(PlayableArea area, Node player, Runnable healthEffect, Runnable eyeEffect, Runnable rangeEffect) {
 		this.area = area;
@@ -30,7 +32,7 @@ public class TokenManager {
 	
 	//to start spawning the tokens
 	public void startSpawning() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5) , e -> {
+		timeline = new Timeline(new KeyFrame(Duration.seconds(5) , e -> {
 			
 			if(Token.getNumberOfToken() < 2)
 				spawnRandomToken();
@@ -39,6 +41,12 @@ public class TokenManager {
 		//continue till the game or level stop
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
+	}
+
+	public void stopSpawning(){
+		if (timeline != null){
+			timeline.stop();
+		}
 	}
 	
 	private void spawnRandomToken() {
@@ -87,5 +95,10 @@ public class TokenManager {
 				iterator.remove();
 			}
 		}
+	}
+
+	public void flush(){
+		tokens = new ArrayList<>();
+		Token.flushTokens();
 	}
 }
