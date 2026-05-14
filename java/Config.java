@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Config {//This class stores the data in config.txt file
+public class Config {//This class stores the data in config.txt file Emir Aydın 150124001
 	
 	//These values are static because loadConfig() and get() methods are static 
 	private static HashMap<String , Integer> config = new HashMap<>();
