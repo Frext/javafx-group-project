@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -53,6 +54,10 @@ public class App extends Application {
 		winPane.setMaxSize(500, 300);
 
 		rootPane.getChildren().add(winPane);
+	}
+
+	public void exit(){
+		Platform.exit();
 	}
 	
     public static void main(String[] args) {

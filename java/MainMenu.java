@@ -17,6 +17,8 @@ public class MainMenu extends Pane{
 		start.setOnMouseClicked(e -> app.startLevel(1));
 		
 		selectLevel.setOnMouseClicked(e -> app.showLevelSelectMenu());
+
+		exit.setOnMouseClicked(e -> app.exit());
 		
 		this.getChildren().addAll(start , selectLevel , exit);
 		
