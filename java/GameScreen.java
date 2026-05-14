@@ -37,6 +37,7 @@ public class GameScreen extends StackPane {
     private int score = 0;
     private int levelTimeLimit;
 
+	//for creating the view of the scene (time and score text , vacuum and health bar etc) Emir Aydın 150124001
     public GameScreen(int levelNumber, App appManager, ImageView backgroundImage) {
         this.appManager = appManager;
         this.levelNumber = levelNumber;
@@ -68,6 +69,7 @@ public class GameScreen extends StackPane {
         this.getChildren().addAll(backgroundImage, area, vacuumBar, healthBar, textBox);
     }
 
+	//we created and added the hunter after the scene created because we took the key events from the scene and start the tokens and game loop Emir Aydın 150124001
     public void initLevel(Scene scene) {
     	
         hunter = new Hunter((area.getMinX() + area.getMaxX()) / 2, (area.getMinY() + area.getMaxY()) / 2, scene);
@@ -77,6 +79,7 @@ public class GameScreen extends StackPane {
         setupGameLoop();
     }
 
+	//for creating token manager and the type of tokens with their effects Emir Aydın 150124001
     private void setupTokenManager() {
         tokenManager = new TokenManager(area, hunter.getView(),
                 () -> { targetHealth += Config.get("health_token_increase") / 100.0; } ,
@@ -109,6 +112,7 @@ public class GameScreen extends StackPane {
         );
     }
 
+	//for starting the game loop (time , entities' movement , vacuum , Collision etc) Emir Aydın 150124001
     private void setupGameLoop() {
         gameLoop = new AnimationTimer() {
             long startTime = -1;
