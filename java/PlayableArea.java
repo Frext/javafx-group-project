@@ -27,8 +27,10 @@ public class PlayableArea extends Pane{
 		});
 		
 		playableArea.setOnKeyReleased(e -> {
-			playableArea.setStyle("");
-			GameScreen.setIsEyeOn(false);
+			if (e.getCode() == KeyCode.M) {
+				playableArea.setStyle("");
+				GameScreen.setIsEyeOn(false);
+			}
 		});
 		this.getChildren().add(playableArea);
 		

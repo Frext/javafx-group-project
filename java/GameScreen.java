@@ -83,19 +83,23 @@ public class GameScreen extends StackPane {
                 
                 () -> {
                     PauseTransition pause = new PauseTransition(Duration.seconds(Config.get("eye_token_duration")));
-                    pause.setOnFinished(e -> {//to avoid name conflict between event e and entity e , we used entity instead of e
+                    pause.setOnFinished(e -> {
+                        setIsEyeOn(false);
+
+                        //to avoid name conflict between event e and entity e , we used entity instead of e
                         for(Entity entity : enemyManager.getEnemies()) {
                             entity.getView().setVisible(false);
                         }
-                        setIsEyeOn(false);
                     });
+
+                    setIsEyeOn(true);
+
                     for(Entity entity : enemyManager.getEnemies()) {
                     	entity.getView().setVisible(true);
                     }
-                    setIsEyeOn(true);
+
                     pause.play();
-                } ,
-                
+                },
                 () -> {
                     PauseTransition pause = new PauseTransition(Duration.seconds(10));
                     pause.setOnFinished(e -> hunter.increaseVacuumRange(-Config.get("vacuum_token_increase")));
@@ -135,7 +139,6 @@ public class GameScreen extends StackPane {
                     hunter.disableVacuumEffect();
                     currentVacuum += vacuumIncrease * 0.0025;
                     
-                    
                     if(!isEyeOn) {
                         for(Entity e : enemyManager.getEnemies()) {
                             ((Enemy)e).applyScannerEffect(false); 
@@ -158,7 +161,7 @@ public class GameScreen extends StackPane {
 
                 tokenManager.checkTokenCollision();
 
-                // If we don't do this, once you start vacuuming an entity, the other entities disappear.
+                // If we don't do this, once you start vacuuming an entity, the other entities disappear even if the eye token was consumed.
                 if (isEyeOn){
                     for(Entity enemy : enemyManager.getEnemies()){
                         enemy.getView().setVisible(true);
