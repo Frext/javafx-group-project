@@ -12,7 +12,7 @@ public class ButtonPane extends StackPane {
 
 	public ButtonPane(int x , int y , String s , Color color) {
 		
-		//to create text Abdullah Derviş Kombıçak 150124009
+		//to create text Abdullah Derviş Kombıçak 150124009 Emir Aydın 150124001
 		text.setText(s);
 		text.setPrefSize(150, 50);
 		text.setStyle("-fx-font-family: 'Chiller'; -fx-text-fill: white; -fx-font-size: 40px;");
@@ -57,7 +57,8 @@ public class ButtonPane extends StackPane {
 		});
 		
 	}
-	
+
+	//for the level select putton Abdullah Derviş Kombıçak 150124009 Emir Aydın 150124001
 	public ButtonPane(int x , int y , String s , Image image) {
 		
 		ImageView imageView = new ImageView(image);
