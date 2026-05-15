@@ -40,8 +40,7 @@ public class Ghost extends Entity implements Enemy{
 		}
 
 	}
-    // Abdullah Derviş Kombıçak 150124009 Restricted movements for NPC 
-    	Bounds bounds = view.getBoundsInParent();
+    // Abdullah Derviş Kombıçak 150124009 Restricted movements for NPC
     @Override
     public void move(double minX, double minY, double maxX, double maxY) {
     	view.setLayoutX(view.getLayoutX() + Vx);
