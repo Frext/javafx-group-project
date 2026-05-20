@@ -10,7 +10,7 @@
 
 ## 📝 About the Project
 **Ghost Hunter Inc.** is a 2D desktop game built using **JavaFX**. 
-Players navigate through various levels to hunt ghosts.
+Players navigate through multiple levels to hunt unique ghosts.
 
 ## 🎮 Gameplay Screenshots
 
