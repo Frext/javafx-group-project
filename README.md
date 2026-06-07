@@ -3,7 +3,7 @@
 ### CS1242: Object-Oriented Programming | Final Group Project
 **Marmara University — Computer Engineering Department**
 
-## 👥 Group 1 Members
+## 👥 Group Members
 * [Furkan Usul](https://github.com/Frext)
 * [Abdullah Derviş Kombıçak](https://github.com/Sonofwin1992)
 * [Emir Aydın](https://github.com/Emir0903)
