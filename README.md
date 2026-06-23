@@ -19,7 +19,7 @@ Players navigate through multiple levels to hunt unique ghosts.
 
 ---
 
-## 🎮 Gameplay Screenshots
+## 📸 Screenshots
 
 | Main Menu | Level Select |
 | :---: | :---: |
@@ -34,4 +34,5 @@ Players navigate through multiple levels to hunt unique ghosts.
 | <img src="https://github.com/user-attachments/assets/b2e245e0-26ec-4c9a-9407-556a39ff8e0a" width="450" height="280" style="object-fit: cover;" /> | <img src="https://github.com/user-attachments/assets/bd8211b8-5f15-4608-824f-6720c9970007" width="450" height="280" style="object-fit: cover;" /> |
 
 ---
+
 **2026**
