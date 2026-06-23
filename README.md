@@ -1,5 +1,8 @@
 # Ghost Hunter Inc.
 
+[![Language](https://img.shields.io/badge/Language-Java-ED8B00.svg?style=flat&logo=java&logoColor=white)](https://www.oracle.com/java/)
+[![Framework](https://img.shields.io/badge/Framework-JavaFX-008080.svg?style=flat&logo=oracle&logoColor=white)](https://openjfx.io/)
+
 ### CS1242: Object-Oriented Programming | Final Group Project
 **Marmara University — Computer Engineering Department**
 
