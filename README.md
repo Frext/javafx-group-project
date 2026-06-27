@@ -16,9 +16,20 @@
 ---
 
 ## 📝 About the Project
-**Ghost Hunter Inc.** is a 2D desktop game built using **JavaFX**. 
+* **Ghost Hunter Inc.** is a 2D desktop game built using **JavaFX**. 
+* Players go through multiple levels with increasing difficulty to hunt unique enemies.
 
-Players navigate through multiple levels to hunt unique ghosts.
+### ⚡ Power-Up Tokens
+Tokens give the player temporary advantages to help them survive and hunt:
+* **👁️ Eye Token:** Makes all hidden enemies visible.
+* **❤️ Health Token:** Increases the player's health.
+* **📐 Range Token:** Increases the player's scanner (red vision triangle) range by 20 pixels.
+
+---
+
+## 🎬 Gameplay
+
+https://github.com/user-attachments/assets/229d4964-19c0-43af-b1b9-d83c4c51462e
 
 ---
 
